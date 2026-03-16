@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Report Generator — AI Research Made Simple</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #F8F9FA;
+            --text-main: #1A1C1E;
+            --text-muted: #6C757D;
+            --bar-bg: #FFFFFF;
+            --accent: #007AFF;
+            --border: #E9ECEF;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.08);
+            --radius-full: 100px;
+            --radius-lg: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        section {
+            width: 100%;
+            max-width: 800px;
+            padding: 60px 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding-top: 100px;
+            padding-bottom: 40px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-muted);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* The Generator (Centerpiece) */
+        .generator-section {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+            position: sticky;
+            top: 20px;
+            z-index: 10;
+        }
+
+        .search-bar-container {
+            width: 100%;
+            max-width: 720px;
+            background: var(--bar-bg);
+            border-radius: 32px;
+            padding: 10px 14px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.2s ease;
+        }
+
+        .search-bar-container:focus-within {
+            transform: scale(1.01);
+        }
+
+        .icon-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 22px;
+            border: none;
+            background: #F1F3F5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        .inspiration-btn {
+            background: #F1F3F5;
+            border: none;
+            border-radius: 22px;
+            padding: 0 18px;
+            height: 44px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .inspiration-btn svg {
+            color: #10B981;
+        }
+
+        .input-wrapper {
+            flex: 1;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            border: none;
+            background: transparent;
+            padding: 12px 6px;
+            font-size: 17px;
+            color: var(--text-main);
+            outline: none;
+        }
+
+        .submit-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 24px;
+            background: #E9ECEF;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text-muted);
+        }
+
+        .submit-btn.active {
+            background: var(--text-main);
+            color: white;
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Chips */
+        .chips-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .chip {
+            background: var(--bar-bg);
+            border: 1px solid var(--border);
+            padding: 8px 18px;
+            border-radius: 100px;
+            font-size: 14px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .chip:hover {
+            background: #F1F3F5;
+            color: var(--text-main);
+            border-color: #CED4DA;
+        }
+
+        /* Features Section */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            padding-top: 80px;
+        }
+
+        .feature-card {
+            text-align: left;
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .feature-card h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* About Section */
+        .about {
+            background: white;
+            max-width: 100%;
+            display: flex;
+            justify-content: center;
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
+
+        .about-content {
+            max-width: 800px;
+            padding: 80px 20px;
+            text-align: left;
+        }
+
+        .about-content h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .about-content p {
+            font-size: 16px;
+            color: #4A5568;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        /* States */
+        .loader-ring {
+            display: none;
+            width: 24px;
+            height: 24px;
+            border: 2px solid rgba(0, 0, 0, 0.05);
+            border-radius: 50%;
+            border-top-color: var(--text-main);
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .status-msg {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 12px;
+            text-align: center;
+            height: 20px;
+        }
+
+        footer {
+            padding: 40px 20px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        footer a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .search-bar-container {
+                flex-wrap: wrap;
+                border-radius: 24px;
+            }
+
+            .input-wrapper {
+                width: 100%;
+                order: -1;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="hero">
+        <h1>Intelligent Research Reports</h1>
+        <p>A minimalist engine that generates structured, unique documents on any topic in seconds.</p>
+    </section>
+
+    <div class="generator-section">
+        <form id="generate-form" class="search-bar-container">
+            <button type="button" class="icon-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </button>
+            <button type="button" class="inspiration-btn" id="inspiration-toggle">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                </svg>
+                Trending
+            </button>
+            <div class="input-wrapper">
+                <input type="text" id="topic-input" placeholder="What are you researching?" autocomplete="off" required>
+            </div>
+            <div class="loader-ring" id="loader"></div>
+            <button type="submit" class="submit-btn" id="submit-btn" disabled>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="19" x2="12" y1="5"></line>
+                    <polyline points="5 12 12 5 19 12"></polyline>
+                </svg>
+            </button>
+        </form>
+        <div id="status-msg" class="status-msg"></div>
+        <div class="chips-container">
+            <div class="chip" onclick="setTopic('The Future of GenAI')">GenAI</div>
+            <div class="chip" onclick="setTopic('Deep Sea Life')">Deep Sea</div>
+            <div class="chip" onclick="setTopic('Quantum Theory')">Quantum</div>
+            <div class="chip" onclick="setTopic('Mars Colonization')">Mars</div>
+        </div>
+    </div>
+
+    <section class="features">
+        <div class="feature-card">
+            <div class="feature-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y1="13"></line>
+                    <line x1="16" y1="17" x2="8" y1="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+            </div>
+            <h3>Structured Layout</h3>
+            <p>Documents are programmatically formatted with clear headings, abstracts, and key finding sections.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                </svg>
+            </div>
+            <h3>Unique Contents</h3>
+            <p>Our engine uses randomized transition logic and varied phrasing to ensure every report is a fresh draft.
+            </p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y1="3"></line>
+                </svg>
+            </div>
+            <h3>Instant Export</h3>
+            <p>Directly generated as high-quality PDF files ready for distribution or offline reading in one click.</p>
+        </div>
+    </section>
+
+    <div class="about">
+        <div class="about-content">
+            <h2>About the Engine</h2>
+            <p>The PDF Report Generator was designed as a lightweight alternative to manual document sketching. It
+                bridges the gap between raw research and formal presentation by leveraging a hybrid Node.js and Python
+                architecture.</p>
+            <p>While many tools rely on heavy LLM calls, this generator uses a custom template-driven engine focused on
+                document structure and thematic coherence. It handles text-wrapping, typography, and layout calculation
+                programmatically using `pdf-lib`.</p>
+        </div>
+    </div>
+
+    <footer>
+        Minimalist PDF Engine • <a href="https://github.com/avartanathlay" target="_blank">Repository</a>
+    </footer>
+
+    <script>
+        const form = document.getElementById('generate-form');
+        const input = document.getElementById('topic-input');
+        const btn = document.getElementById('submit-btn');
+        const loader = document.getElementById('loader');
+        const statusMsg = document.getElementById('status-msg');
+
+        // Handle button state
+        input.addEventListener('input', () => {
+            if (input.value.trim().length > 0) {
+                btn.disabled = false;
+                btn.classList.add('active');
+            } else {
+                btn.disabled = true;
+                btn.classList.remove('active');
+            }
+        });
+
+        function setTopic(topic) {
+            input.value = topic;
+            input.focus();
+            btn.disabled = false;
+            btn.classList.add('active');
+        }
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const topic = input.value.trim();
+            if (!topic) return;
+
+            // UI Feedback
+            statusMsg.textContent = 'Generating report...';
+            btn.style.display = 'none';
+            loader.style.display = 'block';
+
+            try {
+                const response = await fetch('/api/generate-pdf', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ topic })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Generation failed');
+                }
+
+                const disposition = response.headers.get('content-disposition');
+                let filename = 'research_report.pdf';
+                if (disposition && disposition.indexOf('filename=') !== -1) {
+                    const matches = /filename="([^"]*)"/.exec(disposition);
+                    if (matches != null && matches[1]) filename = matches[1];
+                }
+
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+
+                statusMsg.textContent = 'Report ready and downloaded.';
+                input.value = '';
+                btn.disabled = true;
+                btn.classList.remove('active');
+            } catch (err) {
+                statusMsg.textContent = 'Unable to generate report. Please try again.';
+            } finally {
+                btn.style.display = 'flex';
+                loader.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,2 @@
+# No external dependencies required for the basic template engine.
+# Python standard library handles json, random, sys, datetime.

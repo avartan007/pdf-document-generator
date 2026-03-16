@@ -1,0 +1,13 @@
+{
+    "name": "pdf-report-generator",
+    "version": "1.0.0",
+    "description": "AI Research Report Generator",
+    "type": "module",
+    "scripts": {
+        "local": "vercel dev",
+        "deploy": "vercel --prod"
+    },
+    "dependencies": {
+        "pdf-lib": "^1.17.1"
+    }
+}
