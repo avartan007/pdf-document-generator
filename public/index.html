@@ -4,22 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF Report Generator — AI Research Made Simple</title>
+    <title>Semantic Report Engine — Professional Document Structuring</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #F8F9FA;
-            --text-main: #1A1C1E;
-            --text-muted: #6C757D;
-            --bar-bg: #FFFFFF;
-            --accent: #007AFF;
-            --border: #E9ECEF;
-            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
-            --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.08);
-            --radius-full: 100px;
-            --radius-lg: 24px;
+            --bg-color: #0F172A;
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --bar-bg: #1E293B;
+            --accent: #3B82F6;
+            --accent-hover: #2563EB;
+            --border: #334155;
+            --shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
+            --radius: 8px;
         }
 
         * {
@@ -36,132 +35,108 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
+            padding: 20px;
             overflow-x: hidden;
         }
 
-        section {
+        .container {
             width: 100%;
             max-width: 800px;
-            padding: 60px 20px;
-        }
-
-        /* Hero Section */
-        .hero {
             text-align: center;
-            padding-top: 100px;
-            padding-bottom: 40px;
         }
 
         .hero h1 {
-            font-size: 48px;
+            font-size: 3.5rem;
             font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: 16px;
-            line-height: 1.1;
+            letter-spacing: -0.04em;
+            margin-bottom: 12px;
+            color: #FFFFFF;
         }
 
         .hero p {
-            font-size: 18px;
+            font-size: 1.1rem;
             color: var(--text-muted);
-            max-width: 500px;
-            margin: 0 auto;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        /* The Generator (Centerpiece) */
-        .generator-section {
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            width: 100%;
-            position: sticky;
-            top: 20px;
-            z-index: 10;
-        }
-
-        .search-bar-container {
-            width: 100%;
-            max-width: 720px;
+        /* Generator Bar */
+        .search-container {
             background: var(--bar-bg);
-            border-radius: 32px;
-            padding: 10px 14px;
-            box-shadow: var(--shadow-md);
             border: 1px solid var(--border);
+            padding: 12px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            transition: transform 0.2s ease;
+            gap: 12px;
+            box-shadow: var(--shadow);
+            transition: border-color 0.2s;
         }
 
-        .search-bar-container:focus-within {
-            transform: scale(1.01);
+        .search-container:focus-within {
+            border-color: var(--accent);
         }
 
-        .icon-btn {
-            width: 44px;
-            height: 44px;
-            border-radius: 22px;
-            border: none;
-            background: #F1F3F5;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            color: var(--text-muted);
-        }
-
-        .inspiration-btn {
-            background: #F1F3F5;
-            border: none;
-            border-radius: 22px;
-            padding: 0 18px;
-            height: 44px;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-main);
+        .input-group {
+            flex: 1;
             display: flex;
             align-items: center;
             gap: 8px;
-            cursor: pointer;
-            white-space: nowrap;
         }
 
-        .inspiration-btn svg {
-            color: #10B981;
-        }
-
-        .input-wrapper {
-            flex: 1;
-        }
-
-        input[type="text"] {
-            width: 100%;
-            border: none;
-            background: transparent;
-            padding: 12px 6px;
-            font-size: 17px;
-            color: var(--text-main);
-            outline: none;
-        }
-
-        .submit-btn {
-            width: 48px;
-            height: 48px;
-            border-radius: 24px;
-            background: #E9ECEF;
-            border: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s;
+        .input-group svg {
             color: var(--text-muted);
         }
 
-        .submit-btn.active {
-            background: var(--text-main);
+        input[type="text"] {
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-size: 1.1rem;
+            width: 100%;
+            outline: none;
+        }
+
+        input[type="text"]::placeholder {
+            color: #475569;
+        }
+
+        .format-select {
+            background: #0F172A;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .format-select:hover {
+            border-color: var(--text-muted);
+        }
+
+        .submit-btn {
+            background: var(--accent);
             color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            background: var(--accent-hover);
         }
 
         .submit-btn:disabled {
@@ -173,101 +148,56 @@
         .chips-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px;
             justify-content: center;
+            margin-top: 24px;
         }
 
         .chip {
-            background: var(--bar-bg);
+            background: rgba(51, 65, 85, 0.4);
             border: 1px solid var(--border);
-            padding: 8px 18px;
+            padding: 6px 14px;
             border-radius: 100px;
-            font-size: 14px;
+            font-size: 0.85rem;
             color: var(--text-muted);
             cursor: pointer;
             transition: all 0.2s;
-            box-shadow: var(--shadow-sm);
         }
 
         .chip:hover {
-            background: #F1F3F5;
-            color: var(--text-main);
-            border-color: #CED4DA;
+            background: var(--border);
+            color: white;
         }
 
-        /* Features Section */
-        .features {
+        /* Utils Section */
+        .info-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 32px;
-            padding-top: 80px;
-        }
-
-        .feature-card {
+            gap: 24px;
+            margin-top: 60px;
             text-align: left;
         }
 
-        .feature-icon {
-            width: 40px;
-            height: 40px;
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 16px;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .feature-card h3 {
-            font-size: 16px;
-            font-weight: 600;
+        .info-card h3 {
+            font-size: 1rem;
             margin-bottom: 8px;
+            color: var(--accent);
         }
 
-        .feature-card p {
-            font-size: 14px;
+        .info-card p {
+            font-size: 0.9rem;
             color: var(--text-muted);
             line-height: 1.5;
         }
 
-        /* About Section */
-        .about {
-            background: white;
-            max-width: 100%;
-            display: flex;
-            justify-content: center;
-            border-top: 1px solid var(--border);
-            margin-top: 40px;
-        }
-
-        .about-content {
-            max-width: 800px;
-            padding: 80px 20px;
-            text-align: left;
-        }
-
-        .about-content h2 {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        .about-content p {
-            font-size: 16px;
-            color: #4A5568;
-            line-height: 1.6;
-            margin-bottom: 16px;
-        }
-
-        /* States */
-        .loader-ring {
+        /* Loading */
+        .loader {
             display: none;
-            width: 24px;
-            height: 24px;
-            border: 2px solid rgba(0, 0, 0, 0.05);
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: 50%;
-            border-top-color: var(--text-main);
+            border-top-color: var(--accent);
             animation: spin 0.8s linear infinite;
         }
 
@@ -278,44 +208,42 @@
         }
 
         .status-msg {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-top: 12px;
-            text-align: center;
-            height: 20px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: var(--accent);
+            min-height: 20px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .status-msg.visible {
+            opacity: 1;
         }
 
         footer {
-            padding: 40px 20px;
-            font-size: 13px;
-            color: var(--text-muted);
+            position: fixed;
+            bottom: 30px;
+            font-size: 0.85rem;
+            color: #475569;
         }
 
         footer a {
-            color: var(--text-main);
+            color: var(--text-muted);
             text-decoration: none;
-            font-weight: 500;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 640px) {
             .hero h1 {
-                font-size: 36px;
+                font-size: 2.5rem;
             }
 
-            .features {
+            .search-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .info-grid {
                 grid-template-columns: 1fr;
-                gap: 40px;
-            }
-
-            .search-bar-container {
-                flex-wrap: wrap;
-                border-radius: 24px;
-            }
-
-            .input-wrapper {
-                width: 100%;
-                order: -1;
-                margin-bottom: 10px;
             }
         }
     </style>
@@ -323,152 +251,97 @@
 
 <body>
 
-    <section class="hero">
-        <h1>Intelligent Research Reports</h1>
-        <p>A minimalist engine that generates structured, unique documents on any topic in seconds.</p>
-    </section>
-
-    <div class="generator-section">
-        <form id="generate-form" class="search-bar-container">
-            <button type="button" class="icon-btn">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                </svg>
-            </button>
-            <button type="button" class="inspiration-btn" id="inspiration-toggle">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
-                </svg>
-                Trending
-            </button>
-            <div class="input-wrapper">
-                <input type="text" id="topic-input" placeholder="What are you researching?" autocomplete="off" required>
-            </div>
-            <div class="loader-ring" id="loader"></div>
-            <button type="submit" class="submit-btn" id="submit-btn" disabled>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="12" y1="19" x2="12" y1="5"></line>
-                    <polyline points="5 12 12 5 19 12"></polyline>
-                </svg>
-            </button>
-        </form>
-        <div id="status-msg" class="status-msg"></div>
-        <div class="chips-container">
-            <div class="chip" onclick="setTopic('The Future of GenAI')">GenAI</div>
-            <div class="chip" onclick="setTopic('Deep Sea Life')">Deep Sea</div>
-            <div class="chip" onclick="setTopic('Quantum Theory')">Quantum</div>
-            <div class="chip" onclick="setTopic('Mars Colonization')">Mars</div>
-        </div>
-    </div>
-
-    <section class="features">
-        <div class="feature-card">
-            <div class="feature-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                    <polyline points="14 2 14 8 20 8"></polyline>
-                    <line x1="16" y1="13" x2="8" y1="13"></line>
-                    <line x1="16" y1="17" x2="8" y1="17"></line>
-                    <polyline points="10 9 9 9 8 9"></polyline>
-                </svg>
-            </div>
-            <h3>Structured Layout</h3>
-            <p>Documents are programmatically formatted with clear headings, abstracts, and key finding sections.</p>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-                </svg>
-            </div>
-            <h3>Unique Contents</h3>
-            <p>Our engine uses randomized transition logic and varied phrasing to ensure every report is a fresh draft.
+    <div class="container">
+        <section class="hero">
+            <h1>Semantic Engine</h1>
+            <p>Paste your abstract, paper, or research notes to generate a structured, deterministic summary instantly.
             </p>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                    <polyline points="7 10 12 15 17 10"></polyline>
-                    <line x1="12" y1="15" x2="12" y1="3"></line>
-                </svg>
-            </div>
-            <h3>Instant Export</h3>
-            <p>Directly generated as high-quality PDF files ready for distribution or offline reading in one click.</p>
-        </div>
-    </section>
+        </section>
 
-    <div class="about">
-        <div class="about-content">
-            <h2>About the Engine</h2>
-            <p>The PDF Report Generator was designed as a lightweight alternative to manual document sketching. It
-                bridges the gap between raw research and formal presentation by leveraging a hybrid Node.js and Python
-                architecture.</p>
-            <p>While many tools rely on heavy LLM calls, this generator uses a custom template-driven engine focused on
-                document structure and thematic coherence. It handles text-wrapping, typography, and layout calculation
-                programmatically using `pdf-lib`.</p>
+        <form id="gen-form" class="search-container"
+            style="flex-direction: column; align-items: stretch; padding: 20px;">
+            <div class="input-group" style="align-items: flex-start;">
+                <textarea id="text-input" placeholder="Paste your research content here (Abstract, Intro, or Notes)..."
+                    autocomplete="off" required
+                    style="background: transparent; border: none; color: var(--text-main); font-size: 1.1rem; width: 100%; outline: none; min-height: 150px; resize: vertical; line-height: 1.6;"></textarea>
+            </div>
+
+            <div
+                style="display: flex; justify-content: flex-end; align-items: center; gap: 12px; margin-top: 10px; border-top: 1px solid var(--border); padding-top: 15px;">
+                <div class="loader" id="loader"></div>
+                <button type="submit" id="submit-btn" class="submit-btn">
+                    <span id="btn-text">Process & Summarize</span>
+                </button>
+            </div>
+        </form>
+
+        <div id="status-msg" class="status-msg">Analyzing structure...</div>
+
+        <div class="chips-container" style="margin-top: 30px;">
+            <div class="chip"
+                onclick="setTopic('The Transformer is a deep learning model that adopts the mechanism of self-attention, differentially weighting the significance of each part of the input data. It is used primarily in the fields of natural language processing and computer vision. The model has revolutionized the field of NLP by allowing for parallelization of training.')">
+                Transformer Paper</div>
+            <div class="chip"
+                onclick="setTopic('Zero-knowledge proofs allow one party (the prover) to prove to another party (the verifier) that a given statement is true, without conveying any information beyond the mere fact of the statement\'s truth. They are critical for privacy-preserving protocols and blockchain scalability.')">
+                ZKP Abstract</div>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>Sentence Scoring</h3>
+                <p>Identifies key sentences using word frequency analysis for real extractive summarization.</p>
+            </div>
+            <div class="info-card">
+                <h3>Deterministic Architecture</h3>
+                <p>Maps extracted content into Summary, Key Points, and Insights sections without hallucinating.</p>
+            </div>
+            <div class="info-card">
+                <h3>Zero API Blame</h3>
+                <p>Runs 100% locally on the runtime. No external AI wrappers or expensive API credits needed.</p>
+            </div>
         </div>
     </div>
 
     <footer>
-        Minimalist PDF Engine • <a href="https://github.com/avartanathlay" target="_blank">Repository</a>
+        Semantic Engine V2 • <a href="https://github.com/avartanathlay" target="_blank">View Repo</a>
     </footer>
 
     <script>
-        const form = document.getElementById('generate-form');
-        const input = document.getElementById('topic-input');
+        const form = document.getElementById('gen-form');
+        const input = document.getElementById('text-input');
         const btn = document.getElementById('submit-btn');
+        const btnText = document.getElementById('btn-text');
         const loader = document.getElementById('loader');
         const statusMsg = document.getElementById('status-msg');
 
-        // Handle button state
-        input.addEventListener('input', () => {
-            if (input.value.trim().length > 0) {
-                btn.disabled = false;
-                btn.classList.add('active');
-            } else {
-                btn.disabled = true;
-                btn.classList.remove('active');
-            }
-        });
-
-        function setTopic(topic) {
-            input.value = topic;
+        function setTopic(text) {
+            input.value = text;
             input.focus();
-            btn.disabled = false;
-            btn.classList.add('active');
         }
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const topic = input.value.trim();
-            if (!topic) return;
+            const text = input.value.trim();
+            if (!text) return;
 
-            // UI Feedback
-            statusMsg.textContent = 'Generating report...';
-            btn.style.display = 'none';
+            // UI Reset
+            btn.disabled = true;
+            btnText.style.display = 'none';
             loader.style.display = 'block';
+            statusMsg.classList.add('visible');
+            statusMsg.textContent = 'Extracting key concepts...';
 
             try {
                 const response = await fetch('/api/generate-pdf', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ topic })
+                    body: JSON.stringify({ text })
                 });
 
-                if (!response.ok) {
-                    throw new Error('Generation failed');
-                }
+                if (!response.ok) throw new Error('Processing failed');
 
                 const disposition = response.headers.get('content-disposition');
-                let filename = 'research_report.pdf';
+                let filename = 'summary.pdf';
                 if (disposition && disposition.indexOf('filename=') !== -1) {
                     const matches = /filename="([^"]*)"/.exec(disposition);
                     if (matches != null && matches[1]) filename = matches[1];
@@ -481,19 +354,19 @@
                 a.download = filename;
                 document.body.appendChild(a);
                 a.click();
-
+                
                 window.URL.revokeObjectURL(url);
                 document.body.removeChild(a);
 
-                statusMsg.textContent = 'Report ready and downloaded.';
+                statusMsg.textContent = 'Analysis complete. Download ready.';
                 input.value = '';
-                btn.disabled = true;
-                btn.classList.remove('active');
             } catch (err) {
-                statusMsg.textContent = 'Unable to generate report. Please try again.';
+                statusMsg.textContent = 'Engine error. Ensure text is sufficient (8+ words per sentence).';
             } finally {
-                btn.style.display = 'flex';
+                btn.disabled = false;
+                btnText.style.display = 'block';
                 loader.style.display = 'none';
+                setTimeout(() => statusMsg.classList.remove('visible'), 4000);
             }
         });
     </script>
